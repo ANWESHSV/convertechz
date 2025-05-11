@@ -56,6 +56,7 @@ public class Currency {
 				this.exchangeValues.put("CHF", 1.01);
 				this.exchangeValues.put("CNY", 6.36);
 				this.exchangeValues.put("JPY", 123.54);
+				this.exchangeValues.put("INR", 82.50);
 				break;
 			case "Euro":
 				this.exchangeValues.put("USD", 1.073);
@@ -97,6 +98,15 @@ public class Currency {
 				this.exchangeValues.put("CNY", 0.051);
 				this.exchangeValues.put("JPY", 1.000);
 				break;
+			case "Indian Rupee":
+				this.exchangeValues.put("USD", 0.012);
+				this.exchangeValues.put("EUR", 0.011);
+				this.exchangeValues.put("GBP", 0.008);
+				this.exchangeValues.put("CHF", 0.012);
+				this.exchangeValues.put("CNY", 0.078);
+				this.exchangeValues.put("JPY", 1.52);
+				this.exchangeValues.put("INR", 1.00);
+				break;
 		}
 	}
 	
@@ -110,6 +120,7 @@ public class Currency {
 		currencies.add( new Currency("Swiss Franc", "CHF") );
 		currencies.add( new Currency("Chinese Yuan Renminbi", "CNY") );
 		currencies.add( new Currency("Japanese Yen", "JPY") );
+		currencies.add( new Currency("Indian Rupee", "INR") );
 		
 		for (Integer i =0; i < currencies.size(); i++) {
 			currencies.get(i).defaultValues();
