@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "your-docker-repo/currency-converter:latest"
+        DOCKER_IMAGE = "chirag075/convertechz:latest"
         KUBECONFIG = "C:\\jenkins\\.kube\\config"
     }
 
@@ -21,9 +21,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                script {
-                    docker.build(DOCKER_IMAGE)
-                }
+                bat 'docker build -t %DOCKER_IMAGE% .'
             }
         }
 
@@ -39,10 +37,8 @@ pipeline {
 
         stage('Debug') {
             steps {
-                script {
-                    echo "KUBECONFIG: ${env.KUBECONFIG}"
-                    bat 'type %KUBECONFIG%'
-                }
+                echo "KUBECONFIG: ${env.KUBECONFIG}"
+                bat 'type %KUBECONFIG%'
             }
         }
 
