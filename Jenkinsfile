@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = "your-docker-repo/currency-converter:latest"
-        KUBE_CONFIG = credentials('kubeconfig') // Jenkins credential for kubeconfig
+        KUBECONFIG = "C:\\jenkins\\.kube\\config"
     }
 
     stages {
@@ -15,7 +15,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'javac src/currencyConverter/*.java'
+                bat 'javac src\\currencyConverter\\*.java'
             }
         }
 
@@ -37,12 +37,19 @@ pipeline {
             }
         }
 
+        stage('Debug') {
+            steps {
+                script {
+                    echo "KUBECONFIG: ${env.KUBECONFIG}"
+                    bat 'type %KUBECONFIG%'
+                }
+            }
+        }
+
         stage('Deploy to Kubernetes') {
             steps {
-                withKubeConfig([credentialsId: 'kubeconfig']) {
-                    sh 'kubectl apply -f k8s/deployment.yaml'
-                    sh 'kubectl apply -f k8s/service.yaml'
-                }
+                bat 'kubectl apply -f k8s\\deployment.yaml'
+                bat 'kubectl apply -f k8s\\service.yaml'
             }
         }
     }
