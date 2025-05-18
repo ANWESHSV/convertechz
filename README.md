@@ -1,23 +1,67 @@
-# currency-converter-in-java
+# Currency Converter Project
 
+## Project Overview
+This is a Java Swing GUI application for currency conversion. The main entry point is the class `currencyConverter.CurrencyConverter`, which launches the main window (`MainWindow`).
 
-Currency converter (or currency exchange) is a mini project coded in Java programming language. This simple application provides a web-based interface for exchanging/converting money from one currency (say $) to another currency (say €).
+## Running the Application - Step by Step Guide
 
-The complete source code of currency exchange application can be downloaded from the link below. As this is just a mini project, project report and documentation are not available. You can go through the description below for project abstract.
+### 1. Compile and Run Locally
+- Compile the Java source files:
+  ```
+  javac src/currencyConverter/*.java
+  ```
+- Run the main class:
+  ```
+  java -cp src currencyConverter.CurrencyConverter
+  ```
 
-Currency Converter Project Abstract:
-Different countries use different currency, and there is daily variation in these currencies relative to one another. Those who transfer money from one country to another (one currency to another) must be updated with the latest currency exchange rates in the market.
+### 2. Build and Run with Docker
+- Build the Docker image:
+  ```
+  docker build -t currency-converter:latest .
+  ```
+- Run the Docker container with X11 forwarding enabled:
+  - On Linux:
+    ```
+    docker run -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix currency-converter:latest
+    ```
+  - On Windows:
+    - Ensure an X server (e.g., VcXsrv) is running and configured to allow connections.
+    - Set the DISPLAY environment variable accordingly (e.g., `host.docker.internal:0`).
+    - Run the container with the DISPLAY environment variable set:
+      ```
+      docker run -e DISPLAY=host.docker.internal:0 currency-converter:latest
+      ```
 
-Currency converter mini project is built keeping this thing in mind. It is simply a calculator-like app developed using Ajax, Java servlets web features. In this application, there is regular update about currency of every country by which it displays present currency market value and conversion rate.
+### 3. Deploy to Kubernetes using Minikube
+- Ensure Minikube is installed and running.
+- Enable Minikube's Docker environment:
+  ```
+  minikube docker-env
+  ```
+- Build the Docker image inside Minikube's Docker environment:
+  ```
+  docker build -t currency-converter:latest .
+  ```
+- Update the image name in `k8s/deployment.yaml` if necessary.
+- Apply the Kubernetes manifests:
+  ```
+  kubectl apply -f k8s/deployment.yaml
+  kubectl apply -f k8s/service.yaml
+  ```
+- Ensure X11 forwarding is configured on your host and Minikube environment to support GUI apps.
+- Verify the pod is running:
+  ```
+  kubectl get pods
+  ```
 
-Such application can be used by any user, but it is mainly useful for business, shares, and finance related areas where money transfer and currency exchange takes place on a daily basis.
+### 4. Running Jenkins CI/CD Pipeline
+- Set up Jenkins with Docker and Kubernetes CLI.
+- Configure Jenkins credentials for Docker registry and Kubernetes.
+- Use the provided `Jenkinsfile` to automate build, push, and deploy.
+- Trigger the Jenkins pipeline to deploy the application.
 
-In this currency converter app, users are provided with an option to select the type of conversion, i.e. from “this” currency to “that” currency. This simple feature allows users to enter amount to be converted (say currency in Dollars), and display the converted amount (say currency in Euro).
-
-
-
-visit more projects - https://projectworlds.in
-
-demo- https://www.projectworlds.in/java-projects-with-source-code/currency-converter-java-mini-project/
-
-
+## Notes
+- This is a GUI Java Swing app, which requires X11 forwarding for display.
+- Running GUI apps in Kubernetes is uncommon and requires additional setup.
+- For production, consider adapting the app for headless operation or backend use.
