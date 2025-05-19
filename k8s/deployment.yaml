@@ -15,7 +15,7 @@ spec:
       containers:
       - name: currency-converter
         image: chirag075/convertechz:latest
-        imagePullPolicy: Never
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
         env:
