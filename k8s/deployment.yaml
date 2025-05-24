@@ -15,16 +15,10 @@ spec:
       containers:
       - name: currency-converter
         image: chirag075/convertechz:latest
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
-        env:
-        - name: DISPLAY
-          value: "host.docker.internal:0"
-        volumeMounts:
-        - name: x11-unix
-          mountPath: /tmp/.X11-unix
-        # Note: GUI forwarding setup is required on the host for this to work
+        env: []
         resources:
           limits:
             memory: "512Mi"
@@ -32,8 +26,4 @@ spec:
           requests:
             memory: "256Mi"
             cpu: "250m"
-      volumes:
-      - name: x11-unix
-        hostPath:
-          path: /tmp/.X11-unix
-          type: Directory
+      volumes: []
