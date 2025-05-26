@@ -1,5 +1,8 @@
 # Currency Converter Project
 
+#Project demo video
+https://drive.google.com/file/d/1hzCKHZ9f_2D6LZZymgXQmLmVv7EUlZm_/view?usp=sharing
+
 ## Project Overview
 This is a Java Swing GUI application for currency conversion. The main entry point is the class `currencyConverter.CurrencyConverter`, which launches the main window (`MainWindow`).
 
