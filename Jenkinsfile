@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "chirag075/convertechz:latest"
+        DOCKER_IMAGE = "anweshsv19/convertechz:latest"
         KUBECONFIG = "C:\\jenkins\\.kube\\config"
     }
 
